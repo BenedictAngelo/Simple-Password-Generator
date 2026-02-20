@@ -1,8 +1,10 @@
+import os
 import random
 import string
 # must contain special characters
 # must contain lower and upper case letters
 # must contain digits
+file_path = "./passwords.txt"
 
 def password(character_number = input("How many characters do you want? (q to quit): ")):
     input_check = character_number.isdigit()
@@ -19,51 +21,99 @@ def password(character_number = input("How many characters do you want? (q to qu
         generator = random.choices(ascii_split, k=int_convert)
         joined = "".join(generator)
         print()
-        print(joined)
+        print(f"Password generated: {joined}")
         print()
     else:
         print("Invalid Input, make sure to type digits or 'q' to quit")
-    return joined
+        print("Program now exiting...")
+        exit()
+    output = joined
+    return output
 
 def pass_confirmation():
     confirm = input("Are you satisfied with the password? (y/n) (q to quit): ")
+    print("")
     if confirm.lower() == "n":
         password()
         pass_confirmation()
     elif confirm.lower() == "q":
-        print("Exiting...")
-        exit()
+        confirm = "Canceled"
+        print("Exiting....")
+        pass
     elif confirm.lower() == "y":
+        confirm = ""
         pass
     else:
-        print("Invalid output, exiting...")
-        exit()
+        confirm = "Canceled"
+        print("Invalid output, exiting....")
+        pass
     return confirm
 
 
 def email_confirmation():
     pass_confirm = "y"
     if pass_confirm.lower() == "y":
-        email = input("What email did you use? ")
+        email = input("What email did you use?: ")
         print()
-        print(email)
+        print(f"Email generated: {email}")
         print()
         email_confirm = input("Is this email correct? (y/n): ")
         if email_confirm.lower() == "y":
             pass
         else:
             email_confirmation()
-        return email
+        output = email
+        return output
 
 
-with open("/home/angelo/Documents/passwords.txt","a") as f:
-    f.write("=================================")
-    f.write("\n")
-    f.write(f"Password: {password()}")
-    f.write("\n")
-    pass_confirmation()
-    f.write(f"Email: {email_confirmation()}")
-    f.write("\n")
-    f.write("=================================")
-    f.write("\n")
+def txt_file_append():
+    with open(file_path,"a") as f:
+        f.write(f"Password: {password()}")
+        f.write("\n")
+        if pass_confirmation() == "Canceled":
+            f.write("Cancelled^^^^^^^^^^^^^^^\n")
+            exit()
+        else:
+            pass
+        f.write(f"Email: {email_confirmation()}")
+        f.write("\n")
+        f.write("=================================")
+        f.write("\n")
+    return 
+
+def txt_file_write():
+    with open(file_path,"w") as f:
+        f.write(f"Password: {password()}")
+        f.write("\n")
+        if pass_confirmation() == "Canceled":
+            f.write("Cancelled^^^^^^^^^^^^^^^\n")
+            exit()
+        else:
+            pass
+        f.write(f"Email: {email_confirmation()}")
+        f.write("\n")
+        f.write("=================================")
+        f.write("\n")
+    return 
+
+
+
+if os.path.exists(file_path):
+    txt_file_append()
+    print(".")
+    print(".")
+    print(".")
+    print("Successfully added a password, check 'password.txt' at the root directory")
+else:
+    txt_file_write()
+    print(".")
+    print(".")
+    print(".")
+    print("Successfully created 'password.txt' at root directory")
+    print(".")
+    print(".")
+    print(".")
+    print("Successfully added a password, check 'password.txt' at the root directory")
+    
+
 
