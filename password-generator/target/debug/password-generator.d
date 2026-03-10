@@ -1,1 +1,0 @@
-/home/angelo/Repositories/Simple-Password-Generator/password-generator/target/debug/password-generator: /home/angelo/Repositories/Simple-Password-Generator/password-generator/src/main.rs /home/angelo/Repositories/Simple-Password-Generator/password-generator/src/modules/generator.rs /home/angelo/Repositories/Simple-Password-Generator/password-generator/src/modules/mod.rs
