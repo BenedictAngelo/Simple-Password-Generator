@@ -1,6 +1,8 @@
 import random
 import string
 
+print("Hello World")
+
 file_path = "./passwords.txt"
 
 def password(max_char = input("How many characters do you want? (q to quit): ")):
